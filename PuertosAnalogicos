@@ -1,0 +1,25 @@
+float temp; // Variable para almacenar el valor obtenido del sensor (0 a 1023)
+int pinLM35 = 0; // Variable del pin de entrada del sensor (A0)
+String msg1 = "\nTemperatura alta \n";
+String msg2 = "\nTemperatura baja \n";
+void setup() {
+  Serial.begin(9600);
+}
+void loop() {
+  // Con analogRead leemos el sensor, recuerda que es un valor de 0 a 1023
+  temp = analogRead(pinLM35); 
+  // Calculamos la temperatura con la fórmula
+  temp = (5.0 * temp * 100.0)/1024.0; 
+  // Envia el dato al puerto serial
+  if(temp>=11){
+    Serial.print(msg1);
+    Serial.print(temp);
+  }
+  if(temp<=10){
+    Serial.print(msg2);
+    Serial.print(temp);
+  }
+  Serial.print("\n");
+  // Esperamos un tiempo para repetir el loop
+  delay(5000);
+}
